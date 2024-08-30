@@ -29,9 +29,14 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private static final String[] USER_API_URL = {
+    private static final String[] USERS_API_URL = {
             "/api/users/register",
             "/api/users/logout"
+    };
+
+    private static final String[] BOOKS_API_URL = {
+            "/api/books/create",
+            "/api/books/read/{id}"
     };
 
     private final LoginService loginService;
@@ -84,9 +89,10 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()  // 정적 리소스
-                                .requestMatchers("/").permitAll()
-                                .requestMatchers(USER_API_URL).permitAll()
+                        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()  // 정적 리소스
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers(USERS_API_URL).permitAll()
+                        .requestMatchers(BOOKS_API_URL).permitAll()
                 )
                 .addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class)
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonUsernamePasswordAuthenticationFilter.class)

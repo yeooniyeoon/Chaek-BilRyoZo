@@ -33,6 +33,20 @@ public class BooksController {
                 ));
     }
 
-
-
+    // @PathVariable 사용 이유.
+    // RESTful API 디자인에서는 자원의 식별자를 경로에 포함시키는 것이 관례.
+    // API가 더 직관적이고 명확하게 표현됨.
+    @GetMapping("/read/{id}")
+    public ResponseEntity<ApiSuccessResponse<BookResponse>> readBook(
+            @PathVariable("id") Long id,
+            HttpServletRequest servletRequest
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiSuccessResponse.of(
+                        HttpStatus.OK,
+                        servletRequest.getServletPath(),
+                        booksService.readBook(id)
+                ));
+    }
 }

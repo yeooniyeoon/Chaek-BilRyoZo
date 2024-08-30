@@ -27,4 +27,10 @@ public class BooksService {
 
         return new MessageResponseDto("도서 등록이 완료되었습니다.");
     }
+
+    public BookResponse readBook(Long id) {
+        return BookResponse.fromEntity(
+                booksRepository.findById(id)
+                        .orElseThrow(BookNotFoundException::new));
+    }
 }

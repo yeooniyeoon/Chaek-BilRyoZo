@@ -1,7 +1,7 @@
 # 📚 Chaek-BilRyozo
+![logo](docs/logo_purple%20200x200.png)
 ### 도서 대여 관리 시스템
-도서 대여, 반납을 관리해주는 프로그램입니다.
-<br><br>
+도서 대여, 반납을 관리해주는 프로그램입니다.<br><br>
 
 ### ⚒️ 주요 기능
 <details>

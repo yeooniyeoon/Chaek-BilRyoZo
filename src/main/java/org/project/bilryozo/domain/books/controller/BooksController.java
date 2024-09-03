@@ -1,13 +1,16 @@
-package org.project.portfolio.domain.books.controller;
+package org.project.bilryozo.domain.books.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.project.portfolio.domain.books.dto.request.CreateBooksRequestDto;
-import org.project.portfolio.domain.books.dto.response.BookResponse;
-import org.project.portfolio.domain.books.service.BooksService;
-import org.project.portfolio.domain.users.dto.response.MessageResponseDto;
-import org.project.portfolio.global.exception.dto.ApiSuccessResponse;
+import org.project.bilryozo.domain.books.dto.request.CreateBooksRequestDto;
+import org.project.bilryozo.domain.books.dto.response.BookResponse;
+import org.project.bilryozo.domain.books.service.BooksService;
+import org.project.bilryozo.domain.users.dto.response.MessageResponseDto;
+import org.project.bilryozo.global.exception.dto.ApiSuccessResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +39,7 @@ public class BooksController {
     // @PathVariable 사용 이유.
     // RESTful API 디자인에서는 자원의 식별자를 경로에 포함시키는 것이 관례.
     // API가 더 직관적이고 명확하게 표현됨.
-    @GetMapping("/read/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ApiSuccessResponse<BookResponse>> readBook(
             @PathVariable("id") Long id,
             HttpServletRequest servletRequest
@@ -47,6 +50,20 @@ public class BooksController {
                         HttpStatus.OK,
                         servletRequest.getServletPath(),
                         booksService.readBook(id)
+                ));
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiSuccessResponse<Page<BookResponse>>> readAllBooks(
+            @PageableDefault(page = 0, size = 5) Pageable pageable,
+            HttpServletRequest servletRequest
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiSuccessResponse.of(
+                        HttpStatus.OK,
+                        servletRequest.getServletPath(),
+                        booksService.readAllBooks(pageable)
                 ));
     }
 }

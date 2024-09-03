@@ -45,8 +45,9 @@ public class UsersService {
         // 사용자 등록
         Users users = Users.builder()
                 .username(requestDto.getUsername())
-                .password(password)
                 .email(requestDto.getEmail())
+                .password(password)
+                .birthDate(requestDto.getBirthDate())
                 .role(UsersRole.USER)
                 .createdAt(LocalDateTime.now())
                 .build();

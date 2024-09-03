@@ -55,8 +55,8 @@ public class BooksService {
         int limit = pageable.getPageSize();
 
         Page<Books> books = booksRepository.findAll(PageRequest.of(page, limit));
-        Page<BookResponse> booksResponse = books.map(
-                book -> BookResponse.fromEntity(book));
+        Page<BookResponse> booksResponse = books
+                .map(book -> BookResponse.fromEntity(book));
 
         return booksResponse;
     }

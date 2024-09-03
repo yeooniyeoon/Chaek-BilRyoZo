@@ -55,7 +55,7 @@ public class BooksController {
 
     @GetMapping
     public ResponseEntity<ApiSuccessResponse<Page<BookResponse>>> readAllBooks(
-            @PageableDefault(page = 0, size = 5) Pageable pageable,
+            @PageableDefault(page = 0) Pageable pageable,
             HttpServletRequest servletRequest
     ) {
         return ResponseEntity

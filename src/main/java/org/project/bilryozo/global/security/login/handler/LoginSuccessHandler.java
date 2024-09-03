@@ -19,7 +19,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtProvider jwtProvider;
     private final RedisDao redisDao;
 
-    @Value("${jwt.token.access-expiration-time")
+    @Value("${jwt.token.access-expiration-time}")
     private String accessTokenExpiration;
 
     @Override

@@ -55,6 +55,8 @@ public class BooksController {
 
     @GetMapping
     public ResponseEntity<ApiSuccessResponse<Page<BookResponse>>> readAllBooks(
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String keyword,
             @PageableDefault(page = 0) Pageable pageable,
             HttpServletRequest servletRequest
     ) {
@@ -63,7 +65,7 @@ public class BooksController {
                 .body(ApiSuccessResponse.of(
                         HttpStatus.OK,
                         servletRequest.getServletPath(),
-                        booksService.readAllBooks(pageable)
+                        booksService.readAllBooks(type, keyword, pageable)
                 ));
     }
 }

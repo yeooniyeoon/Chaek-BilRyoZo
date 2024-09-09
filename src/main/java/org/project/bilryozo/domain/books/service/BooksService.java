@@ -50,14 +50,33 @@ public class BooksService {
                         .orElseThrow(BookNotFoundException::new));
     }
 
-    public Page<BookResponse> readAllBooks(Pageable pageable) {
+    public Page<BookResponse> readAllBooks(String type, String keyword, Pageable pageable) {
         int page = pageable.getPageNumber();
         int limit = pageable.getPageSize();
 
-        Page<Books> books = booksRepository.findAll(PageRequest.of(page, limit));
-        Page<BookResponse> booksResponse = books
-                .map(book -> BookResponse.fromEntity(book));
-
-        return booksResponse;
+        if (type != null && keyword != null) {
+            Page<Books> books;
+            switch (type) {
+                case "isbn":
+                    books = booksRepository.findByIsbnContaining(keyword, PageRequest.of(page, limit));
+                    break;
+                case "title":
+                    books = booksRepository.findByTitleContaining(keyword, PageRequest.of(page, limit));
+                    break;
+                case "author":
+                    books = booksRepository.findByAuthorContaining(keyword, PageRequest.of(page, limit));
+                    break;
+                case "publisher":
+                    books = booksRepository.findByPublisherContaining(keyword, PageRequest.of(page, limit));
+                    break;
+                default:
+                    return Page.empty();
+            }
+            return books.map(BookResponse::fromEntity);
+        }
+        else {
+            Page<Books> books = booksRepository.findAll(PageRequest.of(page, limit));
+            return books.map(BookResponse::fromEntity);
+        }
     }
 }

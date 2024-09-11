@@ -68,4 +68,19 @@ public class BooksController {
                         booksService.readAllBooks(type, keyword, pageable)
                 ));
     }
+
+    @GetMapping("/popular")
+    public ResponseEntity<ApiSuccessResponse<Page<BookResponse>>> readPopularBooks(
+            @RequestParam(required = true) int rentCount,
+            @PageableDefault(page = 0) Pageable pageable,
+            HttpServletRequest servletRequest
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiSuccessResponse.of(
+                        HttpStatus.OK,
+                        servletRequest.getServletPath(),
+                        booksService.readBooksByRentCount(rentCount, pageable)
+                ));
+    }
 }

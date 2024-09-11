@@ -79,4 +79,9 @@ public class BooksService {
                 throw new InvalidSearchTypeException();
         }
     }
+
+    public Page<BookResponse> readBooksByRentCount(int rentCount, Pageable pageable) {
+        return booksRepository.findByRentCountGreaterThan(rentCount, pageable)
+                .map(BookResponse::fromEntity);
+    }
 }

@@ -37,7 +37,8 @@ public class WebSecurityConfig {
     private static final String[] BOOKS_API_URL = {
             "/api/books/create",
             "/api/books/{id}",
-            "/api/books"
+            "/api/books",
+            "/api/books/popular",
     };
 
     private final LoginService loginService;

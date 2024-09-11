@@ -3,7 +3,8 @@ package org.project.bilryozo.domain.books.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.project.bilryozo.domain.books.dto.request.CreateBooksRequestDto;
+import org.project.bilryozo.domain.books.dto.request.CreateBookRequestDto;
+import org.project.bilryozo.domain.books.dto.request.UpdateBookRequestDto;
 import org.project.bilryozo.domain.books.dto.response.BookResponse;
 import org.project.bilryozo.domain.books.service.BooksService;
 import org.project.bilryozo.domain.users.dto.response.MessageResponseDto;
@@ -24,7 +25,7 @@ public class BooksController {
 
     @PostMapping("/create")
     public ResponseEntity<ApiSuccessResponse<MessageResponseDto>> createBook(
-            @RequestBody CreateBooksRequestDto dto,
+            @RequestBody CreateBookRequestDto dto,
             HttpServletRequest servletRequest
     ) {
         return ResponseEntity
@@ -81,6 +82,21 @@ public class BooksController {
                         HttpStatus.OK,
                         servletRequest.getServletPath(),
                         booksService.readBooksByRentCount(rentCount, pageable)
+                ));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<ApiSuccessResponse<MessageResponseDto>> updateBook(
+            @PathVariable("id") Long id,
+            @RequestBody UpdateBookRequestDto dto,
+            HttpServletRequest servletRequest
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiSuccessResponse.of(
+                        HttpStatus.OK,
+                        servletRequest.getServletPath(),
+                        booksService.updateBook(id, dto)
                 ));
     }
 }

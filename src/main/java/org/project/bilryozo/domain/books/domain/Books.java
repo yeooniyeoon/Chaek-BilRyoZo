@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.project.bilryozo.domain.books.dto.request.UpdateBookRequestDto;
 import org.project.bilryozo.domain.users.domain.Users;
 
 import java.time.LocalDate;
@@ -38,7 +39,7 @@ public class Books {
     private String publisher;
 
     @Column(nullable = false)
-    private LocalDate publishDate;
+    private LocalDate publishedDate;
 
     @Column    // true: 대출 가능, false: 대출 불가
     private Boolean status;
@@ -60,4 +61,21 @@ public class Books {
 
     @Column(name = "deleted_by")   // 도서를 삭제한 관리자 id
     private Long deletedBy;
+
+    public void updateBook(UpdateBookRequestDto dto) {
+        if (dto.getIsbn() != null)
+            this.isbn = dto.getIsbn();
+
+        if (dto.getTitle() != null)
+            this.title = dto.getTitle();
+
+        if (dto.getAuthor() != null)
+            this.author = dto.getAuthor();
+
+        if (dto.getPublisher() != null)
+            this.publisher = dto.getPublisher();
+
+        if (dto.getPublishedDate() != null)
+            this.publishedDate = dto.getPublishedDate();
+    }
 }

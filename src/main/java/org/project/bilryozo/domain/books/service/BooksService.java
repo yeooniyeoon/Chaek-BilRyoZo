@@ -3,7 +3,8 @@ package org.project.bilryozo.domain.books.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.project.bilryozo.domain.books.domain.Books;
-import org.project.bilryozo.domain.books.dto.request.CreateBooksRequestDto;
+import org.project.bilryozo.domain.books.dto.request.CreateBookRequestDto;
+import org.project.bilryozo.domain.books.dto.request.UpdateBookRequestDto;
 import org.project.bilryozo.domain.books.dto.response.BookResponse;
 import org.project.bilryozo.domain.books.exception.BookNotFoundException;
 import org.project.bilryozo.domain.books.exception.InvalidSearchTypeException;
@@ -13,13 +14,10 @@ import org.project.bilryozo.domain.users.dto.response.MessageResponseDto;
 import org.project.bilryozo.domain.users.repository.UsersRepository;
 import org.project.bilryozo.global.security.jwt.exception.UserNotFoundException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Book;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -28,7 +26,7 @@ public class BooksService {
     private final UsersRepository usersRepository;
     private final BooksRepository booksRepository;
 
-    public MessageResponseDto createBook(CreateBooksRequestDto dto) {
+    public MessageResponseDto createBook(CreateBookRequestDto dto) {
         Users user = usersRepository.findById(dto.getUserId())
                 .orElseThrow(UserNotFoundException::new);
 
@@ -38,7 +36,7 @@ public class BooksService {
                 .title(dto.getTitle())
                 .author(dto.getAuthor())
                 .publisher(dto.getPublisher())
-                .publishDate(dto.getPublishedDate())
+                .publishedDate(dto.getPublishedDate())
                 .status(true)
                 .rentCount(0L)
                 .createdAt(LocalDateTime.now())
@@ -83,5 +81,15 @@ public class BooksService {
     public Page<BookResponse> readBooksByRentCount(int rentCount, Pageable pageable) {
         return booksRepository.findByRentCountGreaterThan(rentCount, pageable)
                 .map(BookResponse::fromEntity);
+    }
+
+    public MessageResponseDto updateBook(Long id, UpdateBookRequestDto dto) {
+        Books book = booksRepository.findById(id)
+                        .orElseThrow(BookNotFoundException::new);
+
+        book.updateBook(dto);
+        booksRepository.save(book);
+
+        return new MessageResponseDto("도서 수정이 완료되었습니다.");
     }
 }

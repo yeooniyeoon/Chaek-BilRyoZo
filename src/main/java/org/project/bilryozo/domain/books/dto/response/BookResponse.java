@@ -20,7 +20,7 @@ public class BookResponse {
                 .title(book.getTitle())
                 .author(book.getAuthor())
                 .publisher(book.getPublisher())
-                .publishedDate(book.getPublishDate())
+                .publishedDate(book.getPublishedDate())
                 .status(book.getStatus())
                 .build();
     }

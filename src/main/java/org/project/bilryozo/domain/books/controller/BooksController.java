@@ -99,4 +99,18 @@ public class BooksController {
                         booksService.updateBook(id, dto)
                 ));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiSuccessResponse<MessageResponseDto>> deleteBook(
+            @PathVariable("id") Long id,
+            HttpServletRequest servletRequest
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiSuccessResponse.of(
+                        HttpStatus.OK,
+                        servletRequest.getServletPath(),
+                        booksService.deleteBook(id)
+                ));
+    }
 }

@@ -31,8 +31,12 @@ public class BooksService {
     private final UsersService usersService;
 
     public MessageResponseDto createBook(CreateBookRequestDto dto) {
-        Users user = usersRepository.findById(dto.getUserId())
-                .orElseThrow(UserNotFoundException::new);
+//        Users user = usersRepository.findById(dto.getUserId())
+//                .orElseThrow(UserNotFoundException::new);
+
+        Users user = usersService.getAuthenticateduser();
+        if (user.getRole() != UsersRole.ADMIN)
+            throw new AccessForbiddenException();
 
         booksRepository.save(Books.builder()
                 .isbn(dto.getIsbn())
@@ -100,5 +104,20 @@ public class BooksService {
         booksRepository.save(book);
 
         return new MessageResponseDto("도서 수정이 완료되었습니다.");
+    }
+
+    public MessageResponseDto deleteBook(Long id) {
+        Users user = usersService.getAuthenticateduser();
+
+        if (user.getRole() != UsersRole.ADMIN)
+            throw new AccessForbiddenException();
+
+        Books book = booksRepository.findById(id)
+                .orElseThrow(BookNotFoundException::new);
+
+        book.deleteBook(user);
+        booksRepository.save(book);
+
+        return new MessageResponseDto("도서 삭제가 완료되었습니다.");
     }
 }

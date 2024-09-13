@@ -5,12 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.project.bilryozo.domain.books.dto.request.UpdateBookRequestDto;
 import org.project.bilryozo.domain.users.domain.Users;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Where(clause = "deleted_at is null")
 @Entity
 @Getter
 @NoArgsConstructor
@@ -80,5 +83,10 @@ public class Books {
 
         this.updatedAt = LocalDateTime.now();
         this.updatedBy = user.getId();
+    }
+
+    public void deleteBook(Users user) {
+        this.deletedAt = LocalDateTime.now();
+        this.deletedBy = user.getId();
     }
 }

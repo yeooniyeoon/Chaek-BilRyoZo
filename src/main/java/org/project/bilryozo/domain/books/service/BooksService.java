@@ -10,8 +10,11 @@ import org.project.bilryozo.domain.books.exception.BookNotFoundException;
 import org.project.bilryozo.domain.books.exception.InvalidSearchTypeException;
 import org.project.bilryozo.domain.books.repository.BooksRepository;
 import org.project.bilryozo.domain.users.domain.Users;
+import org.project.bilryozo.domain.users.domain.UsersRole;
 import org.project.bilryozo.domain.users.dto.response.MessageResponseDto;
+import org.project.bilryozo.domain.users.exception.AccessForbiddenException;
 import org.project.bilryozo.domain.users.repository.UsersRepository;
+import org.project.bilryozo.domain.users.service.UsersService;
 import org.project.bilryozo.global.security.jwt.exception.UserNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +28,7 @@ import java.time.LocalDateTime;
 public class BooksService {
     private final UsersRepository usersRepository;
     private final BooksRepository booksRepository;
+    private final UsersService usersService;
 
     public MessageResponseDto createBook(CreateBookRequestDto dto) {
         Users user = usersRepository.findById(dto.getUserId())
@@ -84,10 +88,15 @@ public class BooksService {
     }
 
     public MessageResponseDto updateBook(Long id, UpdateBookRequestDto dto) {
+        Users user = usersService.getAuthenticateduser();
+
+        if (user.getRole() != UsersRole.ADMIN)
+            throw new AccessForbiddenException();
+
         Books book = booksRepository.findById(id)
                         .orElseThrow(BookNotFoundException::new);
 
-        book.updateBook(dto);
+        book.updateBook(dto, user);
         booksRepository.save(book);
 
         return new MessageResponseDto("도서 수정이 완료되었습니다.");

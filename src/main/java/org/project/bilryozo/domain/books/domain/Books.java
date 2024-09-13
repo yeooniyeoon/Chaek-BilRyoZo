@@ -62,7 +62,7 @@ public class Books {
     @Column(name = "deleted_by")   // 도서를 삭제한 관리자 id
     private Long deletedBy;
 
-    public void updateBook(UpdateBookRequestDto dto) {
+    public void updateBook(UpdateBookRequestDto dto, Users user) {
         if (dto.getIsbn() != null)
             this.isbn = dto.getIsbn();
 
@@ -77,5 +77,8 @@ public class Books {
 
         if (dto.getPublishedDate() != null)
             this.publishedDate = dto.getPublishedDate();
+
+        this.updatedAt = LocalDateTime.now();
+        this.updatedBy = user.getId();
     }
 }

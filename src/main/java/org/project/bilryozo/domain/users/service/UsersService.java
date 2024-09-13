@@ -12,6 +12,8 @@ import org.project.bilryozo.domain.users.exception.UserDuplicateUsernameExceptio
 import org.project.bilryozo.domain.users.repository.UsersRepository;
 import org.project.bilryozo.global.redis.RedisDao;
 import org.project.bilryozo.global.security.jwt.JwtProvider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -61,5 +63,12 @@ public class UsersService {
         String username = jwtProvider.extractUsername(accessTokenFromHeader);
         redisDao.deleteValues(username);
         return new MessageResponseDto("로그아웃 되었습니다.");
+    }
+
+    public Users getAuthenticateduser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated())
+            return usersRepository.findByUsername(authentication.getName()).get();
+        return null;
     }
 }

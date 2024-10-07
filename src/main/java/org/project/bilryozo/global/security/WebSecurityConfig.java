@@ -41,6 +41,10 @@ public class WebSecurityConfig {
             "/api/books/popular",
     };
 
+    private static final String[] RENT_API_URL = {
+            "/api/rent/{id}"
+    };
+
     private final LoginService loginService;
     private final JwtProvider jwtProvider;
     private final ObjectMapper objectMapper;
@@ -95,6 +99,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers(USERS_API_URL).permitAll()
                         .requestMatchers(BOOKS_API_URL).permitAll()
+                        .requestMatchers(RENT_API_URL).permitAll()
                 )
                 .addFilterAfter(customJsonUsernamePasswordAuthenticationFilter(), LogoutFilter.class)
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), CustomJsonUsernamePasswordAuthenticationFilter.class)

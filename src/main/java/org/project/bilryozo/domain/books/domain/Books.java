@@ -89,4 +89,8 @@ public class Books {
         this.deletedAt = LocalDateTime.now();
         this.deletedBy = user.getId();
     }
+
+    public void updateStatus(Boolean status) {
+        this.status = status;
+    }
 }

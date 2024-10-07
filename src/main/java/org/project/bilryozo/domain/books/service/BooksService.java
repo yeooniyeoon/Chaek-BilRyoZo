@@ -15,7 +15,6 @@ import org.project.bilryozo.domain.users.dto.response.MessageResponseDto;
 import org.project.bilryozo.domain.users.exception.AccessForbiddenException;
 import org.project.bilryozo.domain.users.repository.UsersRepository;
 import org.project.bilryozo.domain.users.service.UsersService;
-import org.project.bilryozo.global.security.jwt.exception.UserNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

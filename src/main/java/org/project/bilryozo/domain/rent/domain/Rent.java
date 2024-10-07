@@ -35,5 +35,5 @@ public class Rent {
     private LocalDate returnDate;
 
     @Column(nullable = false)   // 반납 여부. true인 경우 반납 완료, false인 경우 미반납.
-    private LocalDate status;
+    private boolean status;
 }

@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
     private static final String LOG_FORMAT = "Status: {}, Class: {}, Code: {}, Message: {}";
 
     @ExceptionHandler(ChaekBilRyoZoException.class)
-    public ResponseEntity<ApiErrorResponse> handlerPortfolioException(HttpServletRequest request, ChaekBilRyoZoException e) {
+    public ResponseEntity<ApiErrorResponse> handlerChaekBilRyoZoException(HttpServletRequest request, ChaekBilRyoZoException e) {
         ErrorCode errorCode = e.getErrorCode();
         HttpStatus status = errorCode.getStatus();
         String exception = e.getClass().getSimpleName();

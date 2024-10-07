@@ -1,7 +1,10 @@
 package org.project.bilryozo.domain.users.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -50,4 +53,8 @@ public class Users {
 
     @Column(name = "deleted_by")
     private Long deletedBy;
+
+    public void updateRentAvailableDate(LocalDate date) {
+        this.rentAvailableDate = date;
+    }
 }

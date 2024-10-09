@@ -42,7 +42,8 @@ public class WebSecurityConfig {
     };
 
     private static final String[] RENT_API_URL = {
-            "/api/rent/{id}"
+            "/api/rent/{id}",
+            "/api/rent/{id}/return"
     };
 
     private final LoginService loginService;

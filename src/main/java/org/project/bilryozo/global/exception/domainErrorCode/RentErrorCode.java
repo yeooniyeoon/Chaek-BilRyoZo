@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public enum RentErrorCode implements ErrorCode {
     INVALID_RENT_AVAILABLE_DATE(HttpStatus.BAD_REQUEST, "대출 가능일이 유효하지 않습니다."),
-    BOOK_ALREADY_BORROW(HttpStatus.CONFLICT, "이미 대출 중인 도서입니다.");
+    BOOK_ALREADY_BORROW(HttpStatus.CONFLICT, "이미 대출 중인 도서입니다."),
+    RENT_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않는 대출건입니다."),
+    ALREADY_RETURN(HttpStatus.BAD_REQUEST, "이미 반납된 대출건입니다.");
 
     private final HttpStatus status;
     private final String message;

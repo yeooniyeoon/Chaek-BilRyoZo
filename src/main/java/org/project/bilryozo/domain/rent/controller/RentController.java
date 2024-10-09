@@ -23,6 +23,20 @@ public class RentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiSuccessResponse<MessageResponseDto>> createRent(
+            @PathVariable("id") Long bookId,
+            HttpServletRequest servletRequest
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ApiSuccessResponse.of(
+                        HttpStatus.OK,
+                        servletRequest.getServletPath(),
+                        rentService.createRent(bookId)
+                ));
+    }
+
+    @GetMapping("/{id}/return")
+    public ResponseEntity<ApiSuccessResponse<MessageResponseDto>> returnBook(
             @PathVariable("id") Long id,
             HttpServletRequest servletRequest
     ) {
@@ -31,7 +45,7 @@ public class RentController {
                 .body(ApiSuccessResponse.of(
                         HttpStatus.OK,
                         servletRequest.getServletPath(),
-                        rentService.createRent(id)
+                        rentService.updateRent(id)
                 ));
     }
 }

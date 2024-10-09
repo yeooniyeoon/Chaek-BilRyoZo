@@ -36,4 +36,9 @@ public class Rent {
 
     @Column(nullable = false)   // 반납 여부. true인 경우 반납 완료, false인 경우 미반납.
     private boolean status;
+
+    public void updateRent() {
+        this.returnDate = LocalDate.now();
+        this.status = true;
+    }
 }

@@ -53,8 +53,8 @@ public class RentService {
                 .build());
 
         // book.status false로 설정하여 대출 안되도록 설정
-        // TODO 대출 시 book.rentCount 오르도록 수정
         book.updateStatus(false);
+        book.updateRentCount();
         booksRepository.save(book);
 
         // user의 rentAvailableDate을 오늘 날짜 +7일로 설정

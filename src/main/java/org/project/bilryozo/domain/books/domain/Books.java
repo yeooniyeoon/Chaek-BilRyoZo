@@ -93,4 +93,8 @@ public class Books {
     public void updateStatus(Boolean status) {
         this.status = status;
     }
+
+    public void updateRentCount() {
+        this.rentCount++;
+    }
 }

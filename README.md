@@ -1,5 +1,6 @@
 # 📚 Chaek-BilRyozo
-![logo](docs/logo_purple%20200x200.png)
+![logo_purple 1200x200](https://github.com/user-attachments/assets/6e3cb92f-b381-43b3-a27c-93964c1805db)
+
 ## 도서 대여 관리 시스템
 도서 대여, 반납을 관리해주는 프로그램입니다.<br><br>
 

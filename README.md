@@ -93,6 +93,16 @@
 <br>
 
 
+
+## **📝 프로젝트 문서**
+|문서|URL|
+|---|---|
+|ERD|[🔗Link](docs/ERD.png)|
+|API 명세서|[🔗Link](https://www.notion.so/API-751fcfb7da3b4d818a9fddc9ee86ff1e?pvs=4)|
+|요구사항 정의서|[🔗Link](https://www.notion.so/51fcb03278344a93a4c20ca9651b7472?pvs=4)|
+<br/>
+
+
 ## 💬 커밋 컨벤션
 
 * *feat* : 기능 추가
@@ -106,5 +116,10 @@
 
 ## 📊 ERD
 ![ERD](docs/ERD.png)
+<br><br>
+
+
+## 📊 Git 브랜치 전략
+![Git 브랜치 전략](https://github.com/user-attachments/assets/ce188175-3f71-4ec7-8f1f-3e97ca158b82)
 <br><br>
 

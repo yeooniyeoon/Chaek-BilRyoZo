@@ -1,4 +1,3 @@
-<!--
 # 📚 Chaek-BilRyozo
 ![logo_purple 1200x200](https://github.com/user-attachments/assets/6e3cb92f-b381-43b3-a27c-93964c1805db)
 
@@ -124,5 +123,3 @@
 ## 📊 Git 브랜치 전략
 ![Git 브랜치 전략](https://github.com/user-attachments/assets/ce188175-3f71-4ec7-8f1f-3e97ca158b82)
 <br><br>
-
--->
